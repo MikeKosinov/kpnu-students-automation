@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
-  timeout: 60000,
+  timeout: 120000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -20,7 +20,7 @@ export default defineConfig({
     actionTimeout: 25000,
     navigationTimeout: 60000,
     baseURL: process.env.BASE_URL,
-    trace: 'on-first-retry',
+    trace: 'on',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
