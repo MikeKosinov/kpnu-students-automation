@@ -1,0 +1,17 @@
+Тема: Подвійне додавання товару "Typhon Performance Fleece-lined Jacket" до кошика
+
+Кроки відтворення:
+1. Відкрити сайт https://magento.softwaretestingboard.com
+2. Натиснути на "Sign In" і авторизуватися
+3. Знайти товар "Typhon Performance Fleece-lined Jacket" за допомогою поля пошуку товару на головній сторінці
+4. Натиснути на зображення товару "Typhon Performance Fleece-lined Jacket" на сторінці результату пошуку
+5. Перевірити, що відкрилася сторінка товару "Typhon Performance Fleece-lined Jacket"
+6. Обрати кількість товару (5)
+7. Обрати розмір товару (L)
+8. Обрати колір товару (Red)
+9. Натиснути на "Add to card"
+10. Обрати кількість товару (10)
+11. Натиснути на "Add to card"
+12. Перевірити кількість товару у кошику (15)
+
+Очікуваний результат: Кількість товару 15 відображається у кошику для "Typhon Performance Fleece-lined Jacket"
