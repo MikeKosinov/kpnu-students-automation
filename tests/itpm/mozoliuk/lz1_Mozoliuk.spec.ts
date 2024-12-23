@@ -4,8 +4,8 @@ import { LoginDataType } from 'src/types/userTypes';
 
 test(`Create new user with valid credentials`, async ({ homePage, registrationPage, headerComponent }) => {
   const registrationData = fakerDataGenerator.generateNewUserData();
-  registrationData.firstname = 'Mykhailo';
-  registrationData.lastname = 'Kosinov';
+  registrationData.firstname = 'Mykola';
+  registrationData.lastname = 'Mozoliuk';
   await homePage.load();
   await homePage.clickOnCreateAnAccountLink();
   await registrationPage.fillAndSubmitRegistrationForm(registrationData);
