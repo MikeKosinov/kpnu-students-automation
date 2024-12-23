@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test api": "npx playwright test tests/examples/api --project=api",
-    "test desktop": "npx playwright test tests/examples/ui  --project=Chrome --project=Firefox --project=Safari ",
+    "test desktop": "npx playwright test tests/  --project=Chrome",
     "test desktop headed": "npx playwright test tests/examples/ui --project=Chrome --project=Firefox --project=Safari --headed"
   },
   "keywords": [],
