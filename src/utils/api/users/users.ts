@@ -10,7 +10,6 @@ class User {
 
   async createUser(userData: CreateUserPayload) {
     const response = await this.apiClient.post(userData);
-    console.log(response);
     expect(response.status).toBe(200);
     console.log(`User created with id: ${response.data.id}`);
     return response;
