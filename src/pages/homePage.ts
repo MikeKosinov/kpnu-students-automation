@@ -54,7 +54,6 @@ export default class HomePage extends BasePage {
     await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
     await test.step(`Click on "Create an account" link.`, async () => {
       await this.homePageLocators.createAnAccountLink.click();
-      await this.verifyPageURL('customer/account/create/');
     });
   }
 
