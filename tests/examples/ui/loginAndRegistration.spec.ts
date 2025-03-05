@@ -11,6 +11,7 @@ test.describe(`Verify login page`, async () => {
     test.skip(browserName === 'firefox', 'Failed by defect');
     const registrationData = fakerDataGenerator.generateNewUserData();
     await homePage.clickOnCreateAnAccountLink();
+    await registrationPage.verifyPageURL('customer/account/create/');
     await registrationPage.fillAndSubmitRegistrationForm(registrationData);
     await headerComponent.verifyLoggedInMessage(registrationData.firstname + ' ' + registrationData.lastname);
   });
