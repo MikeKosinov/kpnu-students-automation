@@ -33,7 +33,7 @@ export default class BasePage {
   // Verify methods
 
   async verifyPageURL(endpoint: string) {
-    const expectedURL = `${process.env.BASE_URL}${endpoint}`;
+    const expectedURL = `${process.env.BASE_URL}/${endpoint}`;
     await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
     await test.step(`Verify page URL to have value: ${expectedURL}`, async () => {
       await expect(this.page).toHaveURL(expectedURL);

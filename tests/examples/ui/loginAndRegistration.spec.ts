@@ -1,5 +1,5 @@
 import { test } from '@testExtenter';
-import { fakerDataGenerator } from '@utils/helpers/generatedData';
+import { fakerDataGenerator } from '@utils/helpers/fakerGeneratedData';
 import { LoginDataType } from 'src/types/userTypes';
 
 test.describe(`Verify login page`, async () => {

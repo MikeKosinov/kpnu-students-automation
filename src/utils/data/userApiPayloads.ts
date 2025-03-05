@@ -1,4 +1,4 @@
-import { fakerDataGenerator } from '@utils/helpers/generatedData';
+import { fakerDataGenerator } from '@utils/helpers/fakerGeneratedData';
 import { CreateUserPayload } from 'src/interfaces/userPayload';
 import { CreateUserType } from 'src/types/userTypes';
 
