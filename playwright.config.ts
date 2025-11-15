@@ -20,27 +20,26 @@ export default defineConfig({
     actionTimeout: 25000,
     navigationTimeout: 60000,
     baseURL: process.env.BASE_URL,
-    trace: 'on',
+    trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
   /* Configure projects for major browsers */
   projects: [
+    //desktop browsers
     {
       name: 'Chrome',
       use: { ...devices['Desktop Chrome'], browserName: 'chromium' },
     },
-
     {
       name: 'Firefox',
       use: { ...devices['Desktop Firefox'], browserName: 'firefox' },
     },
-
     {
       name: 'Safari',
-
       use: { ...devices['Desktop Safari'], browserName: 'webkit' },
     },
+    //mobile browsers
     {
       name: 'iPhone 12 Chrome',
       use: { ...devices['iPhone 12 Pro'], browserName: 'chromium', isMobile: true },
@@ -48,6 +47,31 @@ export default defineConfig({
     {
       name: 'iPhone 12 Safari',
       use: { ...devices['iPhone 12 Pro'], browserName: 'webkit', isMobile: true },
+    },
+    {
+      name: 'Galaxy S9+ Chrome',
+      use: { ...devices['Galaxy S9+'], browserName: 'chromium', isMobile: true },
+    },
+    {
+      name: 'Galaxy S9+ Safari',
+      use: { ...devices['Galaxy S9+'], browserName: 'webkit', isMobile: true },
+    },
+    //tablet browsers
+    {
+      name: 'Galaxy Tab S4 Chrome',
+      use: { ...devices['Galaxy Tab S4'], browserName: 'chromium', isMobile: true },
+    },
+    {
+      name: 'Galaxy Tab S4 Safari',
+      use: { ...devices['Galaxy Tab S4'], browserName: 'webkit', isMobile: true },
+    },
+    {
+      name: 'iPad Pro Chrome',
+      use: { ...devices['iPad Pro 11'], browserName: 'chromium', isMobile: true },
+    },
+    {
+      name: 'iPad Pro Safari',
+      use: { ...devices['iPad Pro 11'], browserName: 'webkit', isMobile: true },
     },
     {
       name: 'api',

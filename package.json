@@ -4,8 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test api": "npx playwright test tests/examples/api --project=api",
-    "test desktop": "npx playwright test tests/examples/ui  --project=Chrome --project=Firefox --project=Safari ",
-    "test desktop headed": "npx playwright test tests/examples/ui --project=Chrome --project=Firefox --project=Safari --headed"
+    "test desktop": "npx playwright test tests/examples/ui  --project=Chrome --project=Firefox --project=Safari",
+    "test desktop headed": "npx playwright test tests/examples/ui --project=Chrome --project=Firefox --project=Safari --headed",
+    "test mobile": "npx playwright test tests/examples/ui --project='iPhone 12 Chrome'  --project='iPhone 12 Safari'",
+    "test mobile headed": "npx playwright test tests/examples/ui --project='iPhone 12 Chrome'  --project='iPhone 12 Safari' --headed",
+    "test tablet": "npx playwright test tests/examples/ui --project='Galaxy Tab S4 Chrome' --project='Galaxy Tab S4 Safari'  --project='iPad Pro Chrome'  --project='iPad Pro Safari'",
+    "test tablet headed": "npx playwright test tests/examples/ui --project='Galaxy Tab S4 Chrome' --project='Galaxy Tab S4 Safari'  --project='iPad Pro Chrome'  --project='iPad Pro Safari' --headed"
   },
   "keywords": [],
   "author": "",
