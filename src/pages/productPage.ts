@@ -2,105 +2,60 @@ import test, { expect, Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
 
 export default class ProductPage extends BasePage {
-  protected readonly productPageLocators: {
-    productName: Locator;
-    productPrice: Locator;
-    quantityInput: Locator;
-    sizeOptions: Locator;
-    colorOptionsContainer: Locator;
-    selectedProductSizeText: Locator;
-    selectedProductColorText: Locator;
-    addToCartButton: Locator;
-    addToWishListIcon: Locator;
-    addToCompare: Locator;
-    productCountInCompareListText: Locator;
-    productsInCartCounterText: Locator;
-  };
-  constructor(page: Page) {
+  protected readonly isMobile: boolean;
+  private readonly productPageTitleLocator: Locator = this.page.locator('h2.title');
+  private readonly searchBoxLocator: Locator = this.page.locator('#search_product');
+  private readonly searchButtonLocator: Locator = this.page.locator('#submit_search');
+  private readonly expectedProductPageTitle = 'All Products';
+  private readonly productsList: Locator = this.page.locator('.features_items .product-image-wrapper');
+
+  constructor(page: Page, isMobile: boolean) {
     super(page);
-    this.productPageLocators = {
-      productName: this.page.locator('h1.page-title'),
-      productPrice: this.page.locator('div.product-info-price span.price'),
-      quantityInput: this.page.locator('input#qty'),
-      sizeOptions: this.page.locator('div[class="swatch-option text"]'),
-      colorOptionsContainer: this.page.locator('div[attribute-code="color"]>div'),
-      selectedProductSizeText: this.page.locator('div[class="swatch-attribute size"] span[class="swatch-attribute-selected-option"]'),
-      selectedProductColorText: this.page.locator('div[class="swatch-attribute color"] span[class="swatch-attribute-selected-option"]'),
-      addToCartButton: this.page.locator('button#product-addtocart-button'),
-      addToWishListIcon: this.page.locator('div.product-social-links div[data-role="add-to-links"] a[data-action="add-to-wishlist"]'),
-      addToCompare: this.page.locator('div.product-social-links div[data-role="add-to-links"] a[class="action tocompare"]'),
-      productsInCartCounterText: this.page.locator('a[class="action showcart"] span[class="counter-number"]'),
-      productCountInCompareListText: this.page.locator('ul[class="compare wrapper"] span[class="counter qty"]'),
-    };
+    this.isMobile = isMobile;
   }
 
-  // Actions
-  async selectProductSize(size: string) {
-    await test.step(`Select product size: ${size}`, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await this.productPageLocators.sizeOptions.filter({ hasText: new RegExp(`^${size}$`) }).click();
+  async verifyPorductsListIsDisplayed() {
+    await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
+    await test.step('Verify products list is visible on Product Page', async () => {
+      expect.soft(await this.productsList.count()).toBeGreaterThan(0);
     });
   }
 
-  async selectProductColor(color: string) {
-    await test.step(`Select product color: ${color}`, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await this.productPageLocators.colorOptionsContainer.locator(`div[aria-label="${color}"]`).click();
+  async searchForProduct(productName: string) {
+    await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
+    await test.step(`Search for product with name: ${productName}`, async () => {
+      await this.searchBoxLocator.fill(productName);
+      await this.searchButtonLocator.click();
     });
   }
 
-  async selectProductQuantity(quantity: number) {
-    const quantityString = quantity.toString();
-    await test.step(`Select product quantity: ${quantity}`, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await this.productPageLocators.quantityInput.click();
-      await this.productPageLocators.quantityInput.fill(quantityString);
-      await expect(this.productPageLocators.quantityInput).toHaveValue(quantity.toString());
+  async clickOnViewProductByIndex(index: number) {
+    await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
+    await test.step(`Click on "View Product" for product with index: ${index}`, async () => {
+      await this.productsList.nth(index).locator('.choose a').filter({ hasText: 'View Product' }).click();
     });
   }
 
-  async clickOnAddToCartButton() {
-    await test.step(`Click on 'Add to cart' button`, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await this.productPageLocators.addToCartButton.click();
-    });
-  }
-
-  async clickOnAddToCompareListButton() {
-    await test.step(`Click on 'Add to compare' button`, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await this.productPageLocators.addToCompare.click();
+  async clickOnAddToCartButtonByIndex(index: number) {
+    await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
+    await test.step(`Click on "Add to cart" button for product with index: ${index}`, async () => {
+      await this.productsList.nth(index).locator('.single-products .productinfo a').filter({ hasText: 'Add to cart' }).click();
     });
   }
 
   // Verify methods
 
-  async verifyProductName(expectedName: string) {
-    await test.step(`Verify product name to be : ${expectedName} `, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await expect(this.productPageLocators.productName).toHaveText(expectedName);
+  async verifySearchedProductIsDisplayed(productName: string, expectedNumberOfProducts: number) {
+    await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
+    await test.step(`Verify searched product with name: ${productName} is displayed`, async () => {
+      const searchedProduct = this.productsList.locator('h2').filter({ hasText: productName });
+      expect.soft(await searchedProduct.count()).toBeGreaterThan(expectedNumberOfProducts);
     });
   }
 
-  async verifyProductCountInCart(expectedCount: string) {
-    await test.step(`Verify added product items count in the cart: ${expectedCount}`, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await expect(this.productPageLocators.productsInCartCounterText).toHaveText(expectedCount, { timeout: 15000 });
-    });
-  }
-
-  async verifyProductPrice(expectedPrice: string) {
-    await test.step(`Verify product price to be : ${expectedPrice} `, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await expect(this.productPageLocators.productPrice).toHaveText(expectedPrice);
-    });
-  }
-
-  async verifyProductAddedToCompareList(expectedItems: number) {
-    const expectedRegex = new RegExp(`^${expectedItems} item(s)?$`);
-    await test.step(`Verify product added to compare list. Expected products quantity in compare list ${expectedItems} `, async () => {
-      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      await expect(this.productPageLocators.productCountInCompareListText).toHaveText(expectedRegex, { timeout: 15000 });
-    });
+  async verifyProductPageTitle() {
+    await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
+    await test.step(`Verify product page title is: ${this.expectedProductPageTitle}`, async () =>
+      expect(this.productPageTitleLocator).toHaveText(this.expectedProductPageTitle));
   }
 }
