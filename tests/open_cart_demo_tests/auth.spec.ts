@@ -12,7 +12,7 @@ test.describe(`Verify login page`, async () => {
     const loginData: LoginDataType =
       process.env.email && process.env.password
         ? { email: process.env.email, password: process.env.password }
-        : { email: 'user151@example.com', password: 'Test_12345' };
+        : { email: 'test151@example.ocm', password: 'Test_12345' };
     await homePage.clickOnMenuItem(uiConst.navigationMenu.SignUpOrLogin);
     await loginPage.verifyPageURL('/login');
     await loginPage.fillAndSubmitLoginForm({
