@@ -1,7 +1,5 @@
 import { test } from '@testExtenter';
 import { uiConst } from '@utils/constants/uiConst';
-import { fakerDataGenerator } from '@utils/helpers/fakerGeneratedData';
-import { LoginDataType } from 'src/types/userTypes';
 test.describe(`Verify login page`, async () => {
   test.beforeEach(async ({ homePage }) => {
     await homePage.load();
@@ -29,7 +27,6 @@ test.describe(`Verify login page`, async () => {
   });
   // this test has a defect - search functionality on products page is not working correctly
   test(`Search product from products page`, async ({ navigarationComponent, productPage }, testInfo) => {
-    //test.skip(true, 'Failed by bug - search functionality not working');
     testInfo.annotations.push({ type: 'bug', description: 'Search functionality on products page is not working correctly' });
     test.skip(true, 'Skipped due to bug in search functionality');
     const productName = 'Rs. 400';

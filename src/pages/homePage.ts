@@ -19,11 +19,7 @@ export default class HomePage extends BasePage {
     sortBySelect: Locator;
     SelectOptionPartialLocator: Locator;
     mainCategoriesLocator: Locator;
-    // menCategoryLocator: Locator;
-    // kidsCategoryLocator: Locator;
     subCategoriesLocator: Locator;
-    // menSubCategoriesLocator: Locator;
-    // kidsSubCategoriesLocator: Locator;
     featuredItemsTitleLocator: Locator;
     recommendedItemsTitleLocator: Locator;
     featuredItemsCardsLocator: Locator;
@@ -48,15 +44,11 @@ export default class HomePage extends BasePage {
       sortBySelect: this.page.locator('select#sorter').first(),
       SelectOptionPartialLocator: this.page.locator('option'),
       mainCategoriesLocator: this.page.locator('h4.panel-title a'),
-      // menCategoryLocator: this.page.locator('a[href="/#Men"]'),
-      // kidsCategoryLocator: this.page.locator('a[href="/#Kids"]'),
       subCategoriesLocator: this.page.locator('div[id="accordian"] ul a'),
       featuredItemsTitleLocator: this.page.locator('h2.title').first(),
       featuredItemsCardsLocator: this.page.locator('.features_items .product-image-wrapper'),
       recommendedItemsTitleLocator: this.page.locator('h2.title').last(),
       recommendedCardListLocator: this.page.locator('.recommended_items .product-image-wrapper'),
-      // menSubCategoriesLocator: this.page.locator('#Men ul a'),
-      // kidsSubCategoriesLocator: this.page.locator('#Kids ul a'),
     };
   }
 
@@ -70,9 +62,7 @@ export default class HomePage extends BasePage {
 
   async clickOnMenuItem(itemName: string) {
     await test.step(`Click on menu item: ${itemName}`, async () => {
-      if (this.isMobile) {
-        await this.homePageLocators.hamburgerMenuButton.click();
-      }
+      await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
       await this.navigationTab.clickOnMenuItem(itemName);
     });
   }

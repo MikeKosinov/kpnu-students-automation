@@ -1,6 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
-
 dotenv.config();
 
 export default defineConfig({
@@ -14,7 +13,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 4 : undefined,
-  reporter: 'html',
+  reporter: [['html', { open: 'never' }], ['list'], ['allure-playwright']],
   // Shared settings for all the projects below.
   use: {
     actionTimeout: 25000,
@@ -136,9 +135,6 @@ export default defineConfig({
 
         hasTouch: true,
       },
-    },
-    {
-      name: 'api',
     },
   ],
   testIgnore: ['tests/examples/wrongTestExamples/**'],
