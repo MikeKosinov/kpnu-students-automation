@@ -7,28 +7,6 @@ on:
     branches: [main, master]
   workflow_dispatch:
 jobs:
-  api-tests:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    env:
-      BASE_URL: ${{ secrets.BASE_URL }}
-      ADMIN_ACCESS_TOKEN: ${{ secrets.ADMIN_ACCESS_TOKEN }}
-    steps:
-      - run: echo "The job was automatically trigerred by a ${{ github.event_name}} event."
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Install dependencies
-        run: npm ci
-      - name: Run api Playwright tests
-        run: npm run "test api"
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-api
-          path: playwright-report/
-          retention-days: 30
   mobile-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
