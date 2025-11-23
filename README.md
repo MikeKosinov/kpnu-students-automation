@@ -4,6 +4,8 @@
 
 This test automation project is developed for KPNU students. Purpose of this framework to gain a practical experience in automation testing.
 
+Used app for automation "Automation exersice"
+
 > This framework will be contain examples of **_bad_** and **_best practice_** examples in development of automation test scenarios.
 
 The main goals of the project:
