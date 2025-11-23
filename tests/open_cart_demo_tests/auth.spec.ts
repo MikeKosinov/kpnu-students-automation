@@ -8,7 +8,7 @@ test.describe(`Verify login page`, async () => {
     await homePage.load();
   });
 
-  test(`Login with existed user`, async ({ homePage, registrationPage, headerComponent, loginPage, navigarationComponent }) => {
+  test(`Login with existed user`, async ({ homePage, headerComponent, loginPage, navigarationComponent }) => {
     const loginData: LoginDataType =
       process.env.email && process.env.password
         ? { email: process.env.email, password: process.env.password }
@@ -35,7 +35,7 @@ test.describe(`Verify login page`, async () => {
     await loginPage.verifyInvalidCredentialsMessage();
   });
 
-  test(`Register new user`, async ({ homePage, navigarationComponent, registrationPage, headerComponent, loginPage, accountCreated }) => {
+  test(`Register new user`, async ({ navigarationComponent, registrationPage, headerComponent, loginPage, accountCreated }) => {
     const randomUser = fakerDataGenerator.generateNewUserData();
     await navigarationComponent.clickOnMenuItem(uiConst.navigationMenu.SignUpOrLogin);
     await loginPage.verifyPageURL('/login');
