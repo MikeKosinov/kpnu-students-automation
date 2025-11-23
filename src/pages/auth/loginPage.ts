@@ -12,8 +12,7 @@ export class LoginPage extends BasePage {
     emailField: Locator;
     passwordField: Locator;
     signUpButton: Locator;
-    // createAnAccountButton: Locator;
-    // forgotPasswordLink: Locator;
+
     loginButton: Locator;
     signUpNameInput: Locator;
     signUpEmailInput: Locator;
@@ -33,8 +32,6 @@ export class LoginPage extends BasePage {
       signUpNameInput: this.page.locator('[data-qa="signup-name"]'),
       signUpEmailInput: this.page.locator('[data-qa="signup-email"]'),
       invalidLoginMessageText: this.page.locator('div.login-form p'),
-      // createAnAccountButton: this.page.locator('a[class="action create primary"]', { hasText: 'Create an Account' }),
-      // forgotPasswordLink: this.page.locator(' a[class="action remind"]', { hasText: 'Forgot Your Password?' }),
     };
   }
 

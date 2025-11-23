@@ -39,11 +39,6 @@ export default class RegistrationPage extends BasePage {
   constructor(page: Page, isMobile: boolean) {
     super(page);
     this.isMobile = isMobile;
-    // STEP 1
-    // this.nameInput = page.locator('[data-qa="signup-name"]');
-    // this.emailInput = page.locator('[data-qa="signup-email"]');
-    // this.signupButton = page.locator('[data-qa="signup-button"]');
-    // STEP 2 (account information)
     this.titleMrRadio = page.locator('#id_gender1');
     this.titleMrsRadio = page.locator('#id_gender2');
     this.passwordInput = page.locator('#password');
@@ -135,12 +130,7 @@ export default class RegistrationPage extends BasePage {
 
   async fillAndSubmitRegistrationForm(userData: CreateUserType) {
     await test.step('Fill and submit registration form', async () => {
-      // STEP 1
       await this.selectGender(userData.title);
-      // await this.nameInput.fill(userData.name);
-      // await this.emailInput.fill(userData.email);
-      // await this.signupButton.click();
-      // STEP 2
       await this.fillAccountInformation(userData.password, userData.birthDay, userData.birthMonth, userData.birthYear);
       await this.fillAddressInformation({
         firstName: userData.firstname,

@@ -3,10 +3,6 @@ import test, { Locator, Page, expect } from '@playwright/test';
 
 export default class AccountCreatedPage extends BasePage {
   protected readonly isMobile: boolean;
-  // protected readonly locatorList: {
-  //   menuComponent: Locator;
-  //   menuItems: Locator;
-  // };
   private readonly accountCreated = this.page.locator('h2[data-qa="account-created"]');
   private readonly continueButton = this.page.locator('a[data-qa="continue-button"]');
 

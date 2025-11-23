@@ -11,7 +11,7 @@ export default class HeaderComponent extends BasePage {
     super(page);
     this.isMobile = isMobile;
     this.welcomeMessageText = this.page.locator('.navbar-nav a').last();
-    this.navigationTab = new NavigationComponent(this.page);
+    this.navigationTab = new NavigationComponent(this.page, this.isMobile);
   }
   // Verify methods
   async verifyLoggedInMessage(expectedMessage: string) {
