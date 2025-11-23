@@ -20,7 +20,7 @@ export default class BasePage {
     await this.page.context().clearCookies();
   }
 
-  async waitUntilLoad(pageState: any) {
+  async waitUntilLoad(pageState: any = this.PAGE_STATE.LOAD) {
     await this.page.waitForLoadState(pageState);
   }
 
@@ -33,17 +33,17 @@ export default class BasePage {
   // Verify methods
 
   async verifyPageURL(endpoint: string) {
-    const expectedURL = `${process.env.BASE_URL}/${endpoint}`;
+    const expectedURL = `${process.env.BASE_URL}${endpoint}`;
     await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
     await test.step(`Verify page URL to have value: ${expectedURL}`, async () => {
-      await expect(this.page).toHaveURL(expectedURL);
+      await expect.soft(this.page).toHaveURL(expectedURL);
     });
   }
 
   async verifyPageTitle(locator: Locator, expectedTitle: string) {
     await test.step(`Verify page title is: ${expectedTitle}`, async () => {
       await this.waitUntilLoad(this.PAGE_STATE.DOM_CONTENT_LOADED);
-      expect(locator).toHaveText(expectedTitle);
+      expect.soft(locator).toHaveText(expectedTitle);
     });
   }
 }

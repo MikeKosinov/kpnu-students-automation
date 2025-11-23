@@ -31,7 +31,7 @@
     "paths": {
       "@testExtenter": ["src/pages/testExtender.ts"],
       "@pages/*": ["src/pages/*"],
-      "@types/*": ["src/types"],
+      "@projectTypes/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"],
       "@helpers/*": ["src/utils/helpers/*"],
       "@interfaces/*": ["scr/interfaces/*"]

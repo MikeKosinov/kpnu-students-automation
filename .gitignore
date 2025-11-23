@@ -16,6 +16,9 @@ dist/
 /blob-report/
 /playwright/.cache/
 /artifacts/
+#Allure actifact files
+/allure-results/
+/allure-report/
 
 #Enviroment variables file
 .env*

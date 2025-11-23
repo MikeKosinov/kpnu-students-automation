@@ -5,7 +5,7 @@ import { expect } from '@testExtenter';
 class User {
   private readonly apiClient: ApiClient;
   constructor() {
-    this.apiClient = new ApiClient('/customers');
+    this.apiClient = new ApiClient('/signup');
   }
 
   async createUser(userData: CreateUserPayload) {
