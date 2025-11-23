@@ -2,7 +2,7 @@
 
 ---
 
-This test automation project is developed for KPNU students. Purpose of this framework to gain a practical experience in automation testing.
+This test automation project is developed for KPNU **KN1-M25** study group. Purpose of this framework to gain a practical experience in automation testing.
 
 Used app for automation "Automation exersice"
 
