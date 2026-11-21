@@ -1,0 +1,50 @@
+ЛЗ12 (lz3). Демченко Дмитро
+Тест-дизайн сценарію за принципом Gherkin (Given / When / Then)
+
+Feature: Кошик інтернет-магазину automationexercise.com
+
+Scenario: Add product to cart from products page, verify it in the cart and remove it
+(Додати товар у кошик зі сторінки товарів, перевірити його в кошику і видалити)
+
+За основу взято тест-приклад "Add product to cart from products page" (tests/open_cart_demo_tests/products.spec.ts).
+Його кроки до появи модального вікна залишені, після них додано нові кроки і перевірки (позначені [NEW]).
+
+  Given я на домашній сторінці сайту
+  When я натискаю пункт меню "Products"
+  Then відкривається сторінка з заголовком "All Products"
+  And на сторінці відображається список товарів
+
+  When я запам'ятовую назву і ціну другого товару у списку                          [NEW]
+  And натискаю "Add to cart" для цього товару
+  Then з'являється модальне вікно
+  And у ньому текст "Your product has been added to cart."
+
+  When я натискаю посилання "View Cart" у модальному вікні                           [NEW]
+  Then відкривається сторінка кошика з адресою /view_cart                            [NEW]
+  And у кошику рівно 1 товар                                                         [NEW]
+  And назва товару в кошику збігається з назвою, яку я додавав                       [NEW]
+  And ціна товару в кошику збігається з ціною на сторінці товарів                    [NEW]
+  And кількість товару дорівнює 1, а загальна сума дорівнює ціні                     [NEW]
+
+  When я видаляю товар з кошика кнопкою "X"                                          [NEW]
+  Then у кошику не залишається жодного товару                                        [NEW]
+  And відображається повідомлення "Cart is empty!"                                  [NEW]
+
+Те саме у вигляді AAA:
+  Arrange: відкрити домашню сторінку, перейти на "Products", взяти другий товар зі списку (назва, ціна).
+  Act:     додати товар у кошик, перейти в кошик через "View Cart", потім видалити товар.
+  Assert:  модальне вікно і повідомлення; URL /view_cart; 1 товар у кошику; збіг назви, ціни,
+           кількості і суми; після видалення кошик порожній і є текст "Cart is empty!".
+
+Використаний функціонал фреймворку:
+  homePage.load(), navigarationComponent.clickOnMenuItem(), productPage.verifyProductPageTitle(),
+  productPage.verifyPorductsListIsDisplayed(), productPage.clickOnAddToCartButtonByIndex(),
+  addedToCardModal.veridyModalIsVisible(), addedToCardModal.verifyAddedToCartMessage(),
+  addedToCardModal.clickOnViewCartButton(), basePage.verifyPageURL().
+Перевірки кошика написані прямо в тесті через test.step, бо CartPage у фреймворку ще порожній (TODO).
+
+Що довелося врахувати при автоматизації:
+  - на сайті є повноекранна реклама Google (#google_vignette), яка перехоплює кліки, тому запити до
+    рекламних доменів у тесті блокуються через page.route;
+  - метод clickOnMenuItem не чекає переходу, тому після кліку тест чекає URL /products і заголовок "All Products";
+  - товар додається в кошик AJAX-запитом, тому перед переходом у кошик тест чекає відповідь /add_to_cart/.
