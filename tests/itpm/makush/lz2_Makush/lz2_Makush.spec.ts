@@ -1,24 +1,27 @@
-import { test, expect } from '@playwright/test';
-import dotenv from 'dotenv';
-dotenv.config();
+import { expect, test } from '@playwright/test';
 
-test.describe('Test setup before testing', async () => {
-  test('Verify title of service', async ({ page }) => {
-    await page.goto(`${process.env.BASE_URL}`);
-    await expect(page.getByText('This is a demo store to test')).toBeVisible();
+test.describe('Базова перевірка Automation Exercise', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
   });
 
-  test('Verify "Sign in" link works properly', async ({ page }) => {
-    await page.goto(`${process.env.BASE_URL}`);
-    await page.getByRole('link', { name: 'Sidn In' }).click();
-    await page.waitForTimeout(7);
-    await expect(page.getByText('Customer Login')).toBeVisible();
+  test('Головна сторінка має назву сервісу', async ({ page }) => {
+    await expect(page).toHaveTitle('Automation Exercise');
+    await expect(page.getByRole('banner').getByRole('img', { name: 'Website for automation practice' })).toBeVisible();
   });
 
-  test('Verify "Create an account" works properly', async ({ page }) => {
-    await page.goto(`${process.env.BASE_URL}`);
-    await page.getByRole('banner').getByRole('link', { name: 'Create an Account' }).click();
-    await page.waitForTimeout(7);
-    await expect(page.getByText('Create New Customer Account')).toBeVisible();
+  test('Signup / Login відкриває форму входу', async ({ page }) => {
+    await page.getByRole('banner').getByRole('link', { name: 'Signup / Login' }).click();
+    await expect(page).toHaveURL(/\/login$/);
+    await expect(page.getByRole('heading', { name: 'Login to your account' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Login', exact: true })).toBeEnabled();
+  });
+
+  test('Signup / Login відкриває форму створення облікового запису', async ({ page }) => {
+    await page.getByRole('banner').getByRole('link', { name: 'Signup / Login' }).click();
+    await expect(page).toHaveURL(/\/login$/);
+    await expect(page.getByRole('heading', { name: 'New User Signup!' })).toBeVisible();
+    await expect(page.getByRole('textbox', { name: 'Name', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Signup', exact: true })).toBeEnabled();
   });
 });
